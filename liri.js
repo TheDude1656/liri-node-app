@@ -1,9 +1,6 @@
 var keys = require("./keys.js").twitterKeys;
+var Twitter = require("twitter");
 
-// console.log(keys);
-// for (key in keys) {
-//   console.log(key + " = " + keys[key]);
-// }
 var client = new Twitter({
   consumer_key: keys.consumer_key,
   consumer_secret: keys.consumer_secret,
