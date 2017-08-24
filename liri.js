@@ -1,15 +1,28 @@
 var Twitter = require('twitter');
 var keys = require("./keys.js").twitterKeys;
 
+// console.log(keys);
+// for (key in keys) {
+//   console.log(key + " = " + keys[key]);
+// }
+var client = new Twitter({
+  consumer_key: keys.consumer_key,
+  consumer_secret: keys.consumer_secret,
+  access_token_key: keys.access_token_key,
+  access_token_secret: keys.access_token_secret
+});
 
-for (var prop in keys) {
-  console.log(`${prop} = ${keys[prop]}`);
+var params = {
+  screen_name: '_DHole_'
+};
 
-}
+// console.log(client);
+client.get('statuses/user_timeline', params, function(error, tweets, response) {
+  if (!error) {
+    for (tweet in tweets) {
 
-console.log(`${keys[0]}`)
-// client.get('search/tweets', {
-//   q: 'node.js'
-// }, function(error, tweets, response) {
-//   console.log(tweets);
-// });
+      console.log(tweets[tweet].text);
+    }
+
+  }
+});
