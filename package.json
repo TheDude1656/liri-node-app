@@ -1,9 +1,27 @@
 {
-"name": "LIRI KUBootCamp App",
-"version": "1.0",
-"description": "Liri not SIRI",
-"author": "Kyle Atchison",
-"dependencies": {
-
-}
+  "name": "liri-node-app",
+  "version": "1.0.0",
+  "description": "liri app in kubootcamp",
+  "main": "liri.js",
+  "dependencies": {
+    "node-spotify-api": "^1.0.7",
+    "geocode": "^0.0.3",
+    "node-twitter": "^0.5.3",
+    "twitter": "^1.7.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node liri.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheDude1656/liri-node-app.git"
+  },
+  "author": "kyle",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheDude1656/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/TheDude1656/liri-node-app#readme"
 }
