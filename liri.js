@@ -25,26 +25,44 @@ function work() {
   switch (action) {
     case "my-tweets":
       twitter();
+      writeToFile();
       break;
     case "spotify-this-song":
       spotifySong();
+      writeToFile();
       break;
     case "movie-this":
       movie();
+      writeToFile();
       break;
     case "do-what-it-says":
       dowhat();
+      writeToFile();
       break;
   }
 }
 work();
+
+function logOut(input) {
+  console.log(input);
+  fs.appendFile("log.txt", "Data Returned from action: " + input + "\n", function(err) {
+
+    if (err) {
+      return logOut(err);
+    }
+
+
+
+  });
+
+}
 
 function twitter() {
   client.get('statuses/user_timeline', params, function(error, tweets, response) {
     if (!error) {
       for (tweet in tweets) {
         myTweets = (tweets[tweet].text);
-        console.log(myTweets);
+        logOut(myTweets);
       }
 
     }
@@ -58,9 +76,9 @@ function spotifySong(action) {
     query: input
   }, function(err, data) {
     if (err) {
-      return console.log('Error occurred: ' + err);
+      return logOut('Error occurred: ' + err);
     }
-    console.log(data);
+    logOut(data);
   });
 };
 
@@ -71,13 +89,13 @@ function movie() {
   request(queryUrl, function(error, response, body) {
 
     if (!error && response.statusCode === 200) {
-      console.log("Title: " + JSON.parse(body).Title);
-      console.log("Release Year: " + JSON.parse(body).Year);
-      console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
-      console.log("Rotten Tomatoes Rating: " + JSON.parse(body).Ratings[1].Value);
-      console.log("Language: " + JSON.parse(body).Language);
-      console.log("Actors: " + JSON.parse(body).Actors);
-      console.log("Plot: " + JSON.parse(body).Plot);
+      logOut("Title: " + JSON.parse(body).Title);
+      logOut("Release Year: " + JSON.parse(body).Year);
+      logOut("IMDB Rating: " + JSON.parse(body).imdbRating);
+      logOut("Rotten Tomatoes Rating: " + JSON.parse(body).Ratings[1].Value);
+      logOut("Language: " + JSON.parse(body).Language);
+      logOut("Actors: " + JSON.parse(body).Actors);
+      logOut("Plot: " + JSON.parse(body).Plot);
     }
   });
 };
@@ -87,10 +105,10 @@ function dowhat() {
   fs.readFile("random.txt", "utf8", function(error, data) {
 
     if (error) {
-      return console.log(error);
+      return logOut(error);
     }
 
-    console.log(data);
+    logOut(data);
 
     var dataArr = data.split(",");
     action = dataArr[0];
@@ -98,3 +116,16 @@ function dowhat() {
     work(action, input);
   });
 };
+
+function writeToFile() {
+  fs.appendFile("log.txt", "Action completed: " + action + "\n",
+    function(err) {
+
+      if (err) {
+        return logOut(err);
+      }
+
+
+
+    });
+}
